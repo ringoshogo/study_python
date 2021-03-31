@@ -34,7 +34,7 @@ def __has_search_str(search_str: str, target_source: list) -> bool:
     for src_elm in target_source:
         if src_elm == search_str:
             return True
-    
+
     return False
 
 def __read_csv() -> list:
