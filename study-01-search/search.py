@@ -17,7 +17,9 @@ def search():
     source = __read_csv()
 
     # 課題1 sourceにおける存在有無をチェックする
-    if __has_search_str(word, source):
+    # if __has_search_str(word, source):
+    # ⇒ 指摘取り込み 一文で判断可能
+    if word in source:
         print("{}が見つかりした。".format(word))
     else:
         print("{}が見つかりませんでした。".format(word))
@@ -28,25 +30,28 @@ def search():
     # 課題4 csvファイルに書き込む
     __write_csv(source)
 
-def __has_search_str(search_str: str, target_source: list) -> bool:
-    """引数の文字列が検索ソースに存在するか否かを判定する"""
+# 指摘取り込み 使用しない
+# def __has_search_str(search_str: str, target_source: list) -> bool:
+#     """引数の文字列が検索ソースに存在するか否かを判定する"""
     
-    for src_elm in target_source:
-        if src_elm == search_str:
-            return True
+#     for src_elm in target_source:
+#         if src_elm == search_str:
+#             return True
 
-    return False
+#     return False
 
 def __read_csv() -> list:
     """csvファイルを読み込んでlistを返却する"""
 
-    with open("./csv/source.csv", "r", encoding="utf-8") as csv_file:
+    # 指摘取り込み utf-8 より utf-8_sig の方が文字化けリスクが低減する
+    with open("./csv/source.csv", "r", encoding="utf-8_sig") as csv_file:
         return list(itertools.chain.from_iterable(csv.reader(csv_file)))
 
 def __write_csv(target_source: list):
     """引数のリストをcsvファイルに書き込む"""
 
-    with  open("./csv/source.csv", "w", encoding="utf-8") as csv_file:
+    # 指摘取り込み utf-8 より utf-8_sig の方が文字化けリスクが低減する
+    with  open("./csv/source.csv", "w", encoding="utf-8_sig") as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(target_source)
         csv_file.flush()
